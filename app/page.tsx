@@ -1,16 +1,17 @@
 'use client';
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
-import * as React from 'react';
 import { useMutation } from 'react-query';
 import Markdown from 'react-markdown';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-    const [chatHistory, setChatHistory] = React.useState<
+    const [chatHistory, setChatHistory] = useState<
         ChatCompletionMessageParam[]
     >([]);
-    const [userMessage, setUserMessage] = React.useState<string>('');
 
-    React.useEffect(() => {
+    const [userMessage, setUserMessage] = useState<string>('');
+
+    useEffect(() => {
         setChatHistory([
             {
                 role: 'assistant',
