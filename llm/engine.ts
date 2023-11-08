@@ -11,7 +11,6 @@ import { saveAccountIdTool } from './tools/saveAccountId';
 import { getAccountIdTool } from './tools/getAccountId';
 import { topDefiListTool } from './tools/topDefiList';
 import { getAccountNftTransactionsTool } from './tools/getAccountNftTransactions';
-import { queryDatabaseTool } from './tools/queryDatabase';
 
 /**
  * Register all the tools here.
@@ -26,7 +25,6 @@ const tools: Tool[] = [
     getAccountIdTool,
     topDefiListTool,
     getAccountNftTransactionsTool,
-    queryDatabaseTool,
 ];
 
 /**
