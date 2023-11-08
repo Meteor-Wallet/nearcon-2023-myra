@@ -18,6 +18,7 @@ export const saveAccountIdTool: Tool = {
                         description: `The account_id that user provided.`,
                     },
                 },
+                required: ['account_id'],
             },
         },
     },

@@ -2,6 +2,7 @@
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 import * as React from 'react';
 import { useMutation } from 'react-query';
+import Markdown from 'react-markdown';
 
 export default function Home() {
     const [chatHistory, setChatHistory] = React.useState<
@@ -68,7 +69,9 @@ export default function Home() {
                                     {chatItem.role}
                                 </div>
                                 <div className='text-gray-900 text-md whitespace-pre-wrap'>
-                                    {chatItem.content as string}
+                                    <Markdown>
+                                        {chatItem.content as string}
+                                    </Markdown>
                                 </div>
                             </div>
                         ))}

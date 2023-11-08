@@ -16,6 +16,22 @@ export const topDefiListTool: Tool = {
         },
     },
     handler: async ({}: {}): Promise<string> => {
-        return JSON.stringify(['Ref-finance', 'Pembrock']);
+        return JSON.stringify([
+            {
+                name: 'Burrow',
+                website: 'https://app.ref.finance/burrow',
+                description: 'A decentralized lending protocol',
+            },
+            {
+                name: 'PembRock Finance',
+                website: 'https://pembrock.finance/',
+                description: 'A decentralized lending protocol',
+            },
+            {
+                name: 'Ref Finance',
+                website: 'https://app.ref.finance/',
+                description: 'A multi purpose Defi platform',
+            },
+        ]);
     },
 };

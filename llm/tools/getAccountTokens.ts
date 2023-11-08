@@ -21,6 +21,7 @@ export const getAccountTokensTool: Tool = {
                         description: 'The account to get tokens for',
                     },
                 },
+                required: ['account_id'],
             },
         },
     },

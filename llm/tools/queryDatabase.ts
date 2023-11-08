@@ -14,6 +14,7 @@ export const queryDatabaseTool: Tool = {
                         description: `The sql statement to run.`,
                     },
                 },
+                required: ['sql'],
             },
         },
     },

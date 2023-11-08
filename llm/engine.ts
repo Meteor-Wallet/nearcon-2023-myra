@@ -9,6 +9,7 @@ import { getAccountNftsTool } from './tools/getAccountNfts';
 import { getFullAccessKeysTool } from './tools/getFullAccessKeys';
 import { saveAccountIdTool } from './tools/saveAccountId';
 import { getAccountIdTool } from './tools/getAccountId';
+import { topDefiListTool } from './tools/topDefiList';
 
 /**
  * Register all the tools here.
@@ -21,6 +22,7 @@ const tools: Tool[] = [
     getFullAccessKeysTool,
     saveAccountIdTool,
     getAccountIdTool,
+    topDefiListTool,
 ];
 
 /**
@@ -41,7 +43,8 @@ export function getSystemMessage(): ChatCompletionMessageParam {
     return {
         role: 'system',
         content:
-            'You are a customer service agent that will help users with their issues on Near Protocol.',
+            'You are a customer service agent that will help users with their issues on Near Protocol.\n' +
+            'You can write response in markdown format if you want to display links or image to user.',
     };
 }
 

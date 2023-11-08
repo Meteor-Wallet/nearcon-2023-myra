@@ -20,6 +20,7 @@ export const getAccountNftsTool: Tool = {
                         description: 'The account to get nfts for',
                     },
                 },
+                required: ['account_id'],
             },
         },
     },

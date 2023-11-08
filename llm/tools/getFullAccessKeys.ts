@@ -14,6 +14,7 @@ export const getFullAccessKeysTool: Tool = {
                         description: 'The account to get full access keys for',
                     },
                 },
+                required: ['account_id'],
             },
         },
     },
