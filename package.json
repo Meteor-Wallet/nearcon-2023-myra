@@ -11,6 +11,8 @@
     "dependencies": {
         "@prisma/client": "^5.5.2",
         "bn.js": "^5.2.1",
+        "graphql": "^16.8.1",
+        "graphql-request": "^6.1.0",
         "near-api-js": "^2.1.4",
         "next": "14.0.1",
         "openai": "^4.15.4",

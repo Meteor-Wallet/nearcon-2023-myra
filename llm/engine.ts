@@ -10,6 +10,7 @@ import { getFullAccessKeysTool } from './tools/getFullAccessKeys';
 import { saveAccountIdTool } from './tools/saveAccountId';
 import { getAccountIdTool } from './tools/getAccountId';
 import { topDefiListTool } from './tools/topDefiList';
+import { getAccountNftTransactionsTool } from './tools/getAccountNftTransactions';
 
 /**
  * Register all the tools here.
@@ -23,6 +24,7 @@ const tools: Tool[] = [
     saveAccountIdTool,
     getAccountIdTool,
     topDefiListTool,
+    getAccountNftTransactionsTool,
 ];
 
 /**
