@@ -92,9 +92,16 @@ export default function Home() {
                   >
                     <div className="chat-header">
                       {chatItem.role}
-                      {/* <time className="text-xs opacity-50">12:45</time> */}
+                      <time className="text-xs opacity-50 pl-2">{`${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`}</time>
                     </div>
-                    <div className="chat-bubble">
+                    <div
+                      className={
+                        "chat-bubble " +
+                        (chatItem.role === "assistant"
+                          ? "chat-bubble-info"
+                          : "")
+                      }
+                    >
                       {chatItem.role === "assistant" ? (
                         <Markdown>{chatItem.content as string}</Markdown>
                       ) : (
