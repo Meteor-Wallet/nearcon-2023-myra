@@ -16,7 +16,7 @@ interface ExecuteSqlResult {
  * @param sql
  * @returns
  */
-export function executeSql(sql: string): ExecuteSqlResult {
+export async function executeSql(sql: string): Promise<ExecuteSqlResult> {
     try {
         // do whatever necessary
 
