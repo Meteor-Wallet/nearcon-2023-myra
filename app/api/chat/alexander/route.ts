@@ -3,6 +3,7 @@ import {
     getSystemMessage,
     getFewShotExamples,
 } from '@/llm/alexander/engine';
+import { executeSql } from '@/llm/alexander/executeSql';
 import { NextResponse } from 'next/server';
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 
@@ -19,5 +20,14 @@ export async function POST(request: Request, response: Response) {
 
     const result = await getResponse(chatHistory);
 
-    return NextResponse.json(result.pop());
+    const chatResult = result.pop() as ChatCompletionMessageParam;
+
+    const sql = chatResult.content as string;
+
+    const sqlResult = await executeSql(sql);
+
+    return NextResponse.json({
+        chatResult,
+        sqlResult,
+    });
 }

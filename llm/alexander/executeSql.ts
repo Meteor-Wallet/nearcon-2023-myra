@@ -1,12 +1,12 @@
-import {BigQuery} from "@google-cloud/bigquery";
-import serviceAccount from "./meteorwallet-query-near.json";
+import { BigQuery } from '@google-cloud/bigquery';
+import serviceAccount from './meteorwallet-query-near.json';
 
 const bigquery = new BigQuery({
     credentials: serviceAccount,
-    projectId: "meteorwallet",
+    projectId: 'meteorwallet',
 });
 
-interface ExecuteSqlResult {
+export interface ExecuteSqlResult {
     status: 'success' | 'error';
     result?: Record<string, any>[];
     error?: string;

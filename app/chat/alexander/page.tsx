@@ -5,6 +5,8 @@ import Markdown from 'react-markdown';
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import SubmitIcon from '../../components/icons/SubmitIcon/SubmitIcon';
 import LoadingIcon from '../../components/icons/LoadingIcon/LoadingIcon';
+import { ExecuteSqlResult } from '@/llm/alexander/executeSql';
+import DisplaySqlResult from './DisplaySqlResult';
 
 export default function Home() {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -14,7 +16,7 @@ export default function Home() {
     const inputAreaRef = useRef<HTMLDivElement>(null);
 
     const [chatHistory, setChatHistory] = useState<
-        ChatCompletionMessageParam[]
+        (ChatCompletionMessageParam | ExecuteSqlResult)[]
     >([]);
 
     const [userMessage, setUserMessage] = useState<string>('');
@@ -36,23 +38,34 @@ export default function Home() {
 
     const sendMessageMutation = useMutation({
         mutationKey: 'sendMessage',
-        mutationFn: async (chats: ChatCompletionMessageParam[]) => {
-            const result = await fetch('/api/chat/alexander', {
+        mutationFn: async (
+            chats: (ChatCompletionMessageParam | ExecuteSqlResult)[]
+        ) => {
+            const result: {
+                chatResult: ChatCompletionMessageParam;
+                sqlResult: ExecuteSqlResult;
+            } = await fetch('/api/chat/alexander', {
                 method: 'POST',
                 body: JSON.stringify({ chats }),
             }).then((res) => res.json());
 
-            setChatHistory((prev) => [...prev, result]);
+            console.log(result);
+
+            setChatHistory((prev) => [...prev, result.chatResult]);
+
+            if (result.sqlResult.status === 'success') {
+                setChatHistory((prev) => [...prev, result.sqlResult]);
+            }
 
             return;
         },
     });
 
     async function sendMessage() {
-        const newChatHistory: ChatCompletionMessageParam[] = [
-            ...chatHistory,
-            { role: 'user', content: userMessage },
-        ];
+        const newChatHistory: (
+            | ChatCompletionMessageParam
+            | ExecuteSqlResult
+        )[] = [...chatHistory, { role: 'user', content: userMessage }];
 
         setChatHistory(newChatHistory);
         setUserMessage('');
@@ -76,45 +89,76 @@ export default function Home() {
                         {chatHistory &&
                             chatHistory
                                 .filter(
-                                    (chatItem) =>
-                                        ['assistant', 'user'].includes(
+                                    (chatItem: any) =>
+                                        (['assistant', 'user'].includes(
                                             chatItem.role
-                                        ) && chatItem.content !== null
+                                        ) &&
+                                            chatItem.content !== null) ||
+                                        chatItem.status === 'success'
                                 )
-                                .map((chatItem, index) => (
-                                    <div
-                                        key={index}
-                                        className={
-                                            chatItem.role === 'assistant'
-                                                ? 'chat chat-start'
-                                                : 'chat chat-end'
-                                        }
-                                    >
-                                        <div className='chat-header'>
-                                            {chatItem.role}
-                                            <time className='text-xs opacity-50 pl-2'>{`${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`}</time>
-                                        </div>
+                                .map((chatItem: any, index) => {
+                                    if (chatItem.status) {
+                                        return (
+                                            <div
+                                                className='chat chat-start'
+                                                key={index}
+                                            >
+                                                <div className='chat-header'>
+                                                    SQL Result:
+                                                </div>
+
+                                                <div className='chat-bubble chat-bubble-inf'>
+                                                    <DisplaySqlResult
+                                                        sqlResult={
+                                                            chatItem.result
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+
+                                    return (
                                         <div
+                                            key={index}
                                             className={
-                                                'chat-bubble ' +
-                                                (chatItem.role === 'assistant'
-                                                    ? 'chat-bubble-info'
-                                                    : '')
+                                                chatItem.role === 'assistant'
+                                                    ? 'chat chat-start'
+                                                    : 'chat chat-end'
                                             }
                                         >
-                                            {chatItem.role === 'assistant' ? (
-                                                <Markdown>
-                                                    {chatItem.content as string}
-                                                </Markdown>
-                                            ) : (
-                                                <pre>
-                                                    {chatItem.content as string}
-                                                </pre>
-                                            )}
+                                            <div className='chat-header'>
+                                                {chatItem.role}
+                                                <time className='text-xs opacity-50 pl-2'>{`${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`}</time>
+                                            </div>
+                                            <div
+                                                className={
+                                                    'chat-bubble ' +
+                                                    (chatItem.role ===
+                                                    'assistant'
+                                                        ? 'chat-bubble-info'
+                                                        : '')
+                                                }
+                                            >
+                                                {chatItem.role ===
+                                                'assistant' ? (
+                                                    <Markdown>
+                                                        {
+                                                            chatItem.content as string
+                                                        }
+                                                    </Markdown>
+                                                ) : (
+                                                    <pre>
+                                                        {
+                                                            chatItem.content as string
+                                                        }
+                                                    </pre>
+                                                )}
+                                            </div>
+                                            {/* <div className="chat-footer opacity-50">Delivered</div> */}
                                         </div>
-                                        {/* <div className="chat-footer opacity-50">Delivered</div> */}
-                                    </div>
-                                ))}
+                                    );
+                                })}
                     </div>
                 </div>
             </div>
