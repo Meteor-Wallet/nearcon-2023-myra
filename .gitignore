@@ -1,4 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+llm/alexander/external-data-team-meteorwallet.json
+llm/alexander/meteorwallet-query-near.json
 
 # dependencies
 /node_modules

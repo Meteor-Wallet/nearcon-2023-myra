@@ -1,3 +1,11 @@
+import {BigQuery} from "@google-cloud/bigquery";
+import serviceAccount from "./meteorwallet-query-near.json";
+
+const bigquery = new BigQuery({
+    credentials: serviceAccount,
+    projectId: "meteorwallet",
+});
+
 interface ExecuteSqlResult {
     status: 'success' | 'error';
     result?: Record<string, any>[];
@@ -19,10 +27,13 @@ interface ExecuteSqlResult {
 export async function executeSql(sql: string): Promise<ExecuteSqlResult> {
     try {
         // do whatever necessary
+        const result = await bigquery.query({
+            query: sql,
+        });
 
         return {
             status: 'success',
-            result: [],
+            result,
         };
     } catch (err: any) {
         return {
