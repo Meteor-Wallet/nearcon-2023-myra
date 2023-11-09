@@ -1,4 +1,4 @@
-import { getResponse, getSystemMessage } from '@/llm/engine';
+import { getResponse, getSystemMessage } from '@/llm/myra/engine';
 import { NextResponse } from 'next/server';
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 
