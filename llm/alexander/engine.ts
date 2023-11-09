@@ -34,6 +34,8 @@ Columns: [('block_date', DATE()), ('block_height', Integer()), ('block_timestamp
         
 A user will ask you a question about the data base. You should provide the SQL query (in the GoogleSQL dialect) that will provide the data to answer the question. YOU SHOULD ONLY PROVIDE THE SQL QUERY and no extra info. You should not greet the user or explain the query. YOU SHOULD NOT prefix the answer with 'sql' or anything similar. The query will be copied and ran by the user.
 
+Always include number values as type 'NUMERIC' instead of type 'INT64'. You can achieve this by writing '.0' at the end of every number which will convert it to 'NUMERIC'. 
+
 ALL THE QUERIES WILL ONLY REQUIRE THE LAST 7 DAYS OF DATA SO ALWAYS END THE QUERY WITH:
 "WHERE block_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)"
 `,
