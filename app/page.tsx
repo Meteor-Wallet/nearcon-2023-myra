@@ -31,26 +31,59 @@ export default function Page() {
           variants={container}
           initial="hidden"
           animate="visible"
-          className="w-[80%] p-10 m-auto bg- rounded-lg shadow-md lg:max-w-lg bg-neutral-focus"
+          className="w-[80%] p-10 m-auto bg- rounded-lg shadow-md lg:max-w-[60%] bg-neutral-focus"
         >
           <h1 className="text-3xl font-semibold text-center mb-5 tracking-widest">
             {/* <Logo /> APP NAME */}
-            APP NAME
+            NEAR Insight
           </h1>
+          <h2 className="text-center mb-5">
+            Clear Blockchain Insights, Powered by AI
+          </h2>
           <form className="space-y-4">
-            <div className="flex flex-col gap-5">
-              <motion.div variants={item}>
-                <Link className="btn btn-accent w-full" href="/chat/myra">
-                  Chat with Myra
-                </Link>
+            <div className="flex gap-5">
+              <motion.div
+                variants={item}
+                className="card w-[50%] bg-base-100 shadow-xl"
+              >
+                <div className="card-body items-center text-center">
+                  <h2 className="card-title">Chronos</h2>
+                  <p>Complex queries made easy.</p>
+                  <p>
+                    Access comprehensive blockchain history through Google
+                    BigQuery for in-depth insights powered by AI. Enjoy the
+                    flexibility of pay-per-use.
+                  </p>
+                  <div className="card-actions">
+                    <Link
+                      className="btn btn-outline btn-accent w-full"
+                      href="/chat/chronos"
+                    >
+                      Chat with Chronos
+                    </Link>
+                  </div>
+                </div>
               </motion.div>
-              <motion.div variants={item}>
-                <Link
-                  className="btn btn-outline btn-neutral w-full"
-                  href="/chat/alexander"
-                >
-                  Chat with Alexander
-                </Link>
+
+              <motion.div
+                variants={item}
+                className="card w-[50%] bg-base-100 shadow-xl"
+              >
+                <div className="card-body items-center text-center">
+                  <h2 className="card-title">Pulse</h2>
+                  <p>
+                    Ask and receive blockchain answers quickly. Always free via
+                    RPC.
+                  </p>
+                  <div className="card-actions">
+                    <Link
+                      className="btn btn-outline btn-accent w-full"
+                      href="/chat/pulse"
+                    >
+                      Chat with Pulse
+                    </Link>
+                  </div>
+                </div>
               </motion.div>
             </div>
           </form>
