@@ -33,7 +33,7 @@ export async function executeSql(sql: string): Promise<ExecuteSqlResult> {
 
         return {
             status: 'success',
-            result,
+            result: result[0],
         };
     } catch (err: any) {
         return {

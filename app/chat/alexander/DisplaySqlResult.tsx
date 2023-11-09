@@ -13,10 +13,6 @@ export default function DisplaySqlResult({
         return <>None</>;
     }
 
-    if (sqlKeys.length === 1) {
-        return <>{sqlResult.map((row) => row[sqlKeys[0]]).join(', ')}</>;
-    }
-
     return (
         <>
             {sqlResult.map((result, index) => {
@@ -26,7 +22,7 @@ export default function DisplaySqlResult({
 
                 return (
                     <details key={index} className='collapse bg-base-200'>
-                        <summary className='collapse-title text-xl font-medium'>
+                        <summary className='collapse-title text-md font-medium'>
                             <strong>{resultSummaryKey}:</strong>{' '}
                             {result[resultSummaryKey]}
                             <div className='collapse-content'>
