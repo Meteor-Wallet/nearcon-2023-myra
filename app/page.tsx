@@ -31,7 +31,7 @@ export default function Page() {
           variants={container}
           initial="hidden"
           animate="visible"
-          className="w-full p-10 m-auto bg- rounded-lg shadow-md lg:max-w-lg bg-neutral-focus"
+          className="w-[80%] p-10 m-auto bg- rounded-lg shadow-md lg:max-w-lg bg-neutral-focus"
         >
           <h1 className="text-3xl font-semibold text-center mb-5 tracking-widest">
             {/* <Logo /> APP NAME */}
