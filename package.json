@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@google-cloud/bigquery": "^7.3.0",
         "@prisma/client": "^5.5.2",
         "bn.js": "^5.2.1",
         "graphql": "^16.8.1",
