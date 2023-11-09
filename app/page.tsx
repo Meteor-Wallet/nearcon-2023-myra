@@ -57,7 +57,7 @@ export default function Page() {
                   <div className="card-actions">
                     <Link
                       className="btn btn-outline btn-accent w-full"
-                      href="/chat/chronos"
+                      href="/chat/alexander"
                     >
                       Chat with Chronos
                     </Link>

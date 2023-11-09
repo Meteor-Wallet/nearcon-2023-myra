@@ -7,17 +7,13 @@ import SubmitIcon from "../../components/icons/SubmitIcon/SubmitIcon";
 import LoadingIcon from "../../components/icons/LoadingIcon/LoadingIcon";
 import { ExecuteSqlResult } from "@/llm/alexander/executeSql";
 import DisplaySqlResult from "./DisplaySqlResult";
-import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const router = useRouter();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const [inputAreaHeight, setInputAreaHeight] = useState(0);
 
   const inputAreaRef = useRef<HTMLDivElement>(null);
-
-  const [showDebug, setShowDebug] = useState(false);
 
   const [chatHistory, setChatHistory] = useState<
     (ChatCompletionMessageParam | ExecuteSqlResult)[]
@@ -78,7 +74,6 @@ export default function Home() {
 
   const handleKeyDown = async (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
       await sendMessage();
     }
   };
@@ -90,30 +85,60 @@ export default function Home() {
           className="flex flex-col  overflow-auto"
           style={{ height: `calc(95vh - ${inputAreaHeight}px)` }}
         >
-          {/** START top section  */}
-          <div className="flex justify-between">
-            <button
-              onClick={() => {
-                router.back();
-              }}
-            >
-              Back
-            </button>
-            {/* <div className="form-control">
-              <label className="cursor-pointer label">
-                <span className="label-text p-2">Debug</span>
-                <input
-                  type="checkbox"
-                  className="toggle toggle-primary"
-                  checked={showDebug}
-                  onChange={(v) => {
-                    setShowDebug((prev) => !prev);
-                  }}
-                />
-              </label>
-            </div> */}
+          <div className="flex flex-col">
+            {chatHistory &&
+              chatHistory
+                .filter(
+                  (chatItem: any) =>
+                    (["assistant", "user"].includes(chatItem.role) &&
+                      chatItem.content !== null) ||
+                    chatItem.status === "success"
+                )
+                .map((chatItem: any, index) => {
+                  if (chatItem.status) {
+                    return (
+                      <div className="chat chat-start" key={index}>
+                        <div className="chat-header">SQL Result:</div>
+
+                        <div className="chat-bubble chat-bubble-inf">
+                          <DisplaySqlResult sqlResult={chatItem.result} />
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div
+                      key={index}
+                      className={
+                        chatItem.role === "assistant"
+                          ? "chat chat-start"
+                          : "chat chat-end"
+                      }
+                    >
+                      <div className="chat-header">
+                        {chatItem.role}
+                        <time className="text-xs opacity-50 pl-2">{`${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`}</time>
+                      </div>
+                      <div
+                        className={
+                          "chat-bubble " +
+                          (chatItem.role === "assistant"
+                            ? "chat-bubble-info"
+                            : "")
+                        }
+                      >
+                        {chatItem.role === "assistant" ? (
+                          <Markdown>{chatItem.content as string}</Markdown>
+                        ) : (
+                          <pre>{chatItem.content as string}</pre>
+                        )}
+                      </div>
+                      {/* <div className="chat-footer opacity-50">Delivered</div> */}
+                    </div>
+                  );
+                })}
           </div>
-          {/** END top section  */}
         </div>
       </div>
       <div ref={inputAreaRef} className="fixed bottom-1 w-full">

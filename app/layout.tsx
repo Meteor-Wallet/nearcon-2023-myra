@@ -6,7 +6,7 @@ import Provider from "./provider/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Myra Bot",
+  title: "Pulse Bot",
   description: "Near Protocol Bot",
 };
 
