@@ -9,6 +9,7 @@ import { getAccountNftsTool } from './tools/getAccountNfts';
 import { getFullAccessKeysTool } from './tools/getFullAccessKeys';
 import { topDefiListTool } from './tools/topDefiList';
 import { getAccountNftTransactionsTool } from './tools/getAccountNftTransactions';
+import { topEarnNearListTool } from './tools/topEarnNearList';
 
 /**
  * Register all the tools here.
@@ -21,6 +22,7 @@ const tools: Tool[] = [
     getFullAccessKeysTool,
     topDefiListTool,
     getAccountNftTransactionsTool,
+    topEarnNearListTool,
 ];
 
 /**
