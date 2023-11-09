@@ -3,12 +3,10 @@ import {
     ChatCompletionTool,
 } from 'openai/resources/index.mjs';
 import { Tool } from './types';
-import { openai } from './openai';
+import { openai } from '../openai';
 import { getAccountTokensTool } from './tools/getAccountTokens';
 import { getAccountNftsTool } from './tools/getAccountNfts';
 import { getFullAccessKeysTool } from './tools/getFullAccessKeys';
-import { saveAccountIdTool } from './tools/saveAccountId';
-import { getAccountIdTool } from './tools/getAccountId';
 import { topDefiListTool } from './tools/topDefiList';
 import { getAccountNftTransactionsTool } from './tools/getAccountNftTransactions';
 
@@ -21,8 +19,6 @@ const tools: Tool[] = [
     getAccountTokensTool,
     getAccountNftsTool,
     getFullAccessKeysTool,
-    saveAccountIdTool,
-    getAccountIdTool,
     topDefiListTool,
     getAccountNftTransactionsTool,
 ];
